@@ -13,8 +13,8 @@ Linux Hello is a **session credential broker for the Linux desktop**, a Windows 
 | Repository | Visibility | What it holds | State |
 | :-- | :-- | :-- | :-- |
 | [`linux-hello`](https://github.com/LinuxHello/linux-hello) | public | The code: a Rust workspace of six crates, plus `security/`, `policy/`, `plasma/`, the docs vault, CI and release automation | 39 issues closed, 10 open; about 6,200 lines of Rust, 5,700 of them in the Agent |
-| [`architecture`](https://github.com/LinuxHello/architecture) | public | Arc42 notes, the C4 model (`workspace.dsl`), ADRs, spikes, generated diagrams | 18 ADRs, 15 spike notes, 12 Arc42 sections (2 still gaps, 5 partly written) |
-| [`branding`](https://github.com/LinuxHello/branding) | public | Brand guide, logo files generated from one master, design tokens | Draft; the logo licence and use policy are undecided |
+| [`architecture`](https://github.com/LinuxHello/linux-hello-architecture) | public | Arc42 notes, the C4 model (`workspace.dsl`), ADRs, spikes, generated diagrams | 18 ADRs, 15 spike notes, 12 Arc42 sections (2 still gaps, 5 partly written) |
+| [`branding`](https://github.com/LinuxHello/linux-hello-branding) | public | Brand guide, logo files generated from one master, design tokens | Draft; the logo licence and use policy are undecided |
 | [`linux-hello-workstation`](https://github.com/LinuxHello/linux-hello-workstation) | **private** | The maintainer's tooling: backlog and board commands, the local implementer and its unattended loop, test-VM scripts, organisation setup | Active; every task is a `make` target |
 
 `.github` is the fifth repository: the organisation profile.
@@ -32,7 +32,7 @@ flowchart LR
 
 ### Architecture in short
 
-Five layers: **unlock** (PAM with fprintd, Howdy, PIN), **broker** (the Agent), **interfaces** (CTAP2 over a virtual `uhid` security key for WebAuthn; the Secret Service for tokens), **routing policy**, **providers** (TPM2, KeePassXC, hardware key as fallback). Browsers see the virtual authenticator as an ordinary USB security key, which is why no browser changes are needed ([ADR-0005](https://github.com/LinuxHello/architecture/blob/main/adr/0005-provider-path.md)).
+Five layers: **unlock** (PAM with fprintd, Howdy, PIN), **broker** (the Agent), **interfaces** (CTAP2 over a virtual `uhid` security key for WebAuthn; the Secret Service for tokens), **routing policy**, **providers** (TPM2, KeePassXC, hardware key as fallback). Browsers see the virtual authenticator as an ordinary USB security key, which is why no browser changes are needed ([ADR-0005](https://github.com/LinuxHello/linux-hello-architecture/blob/main/adr/0005-provider-path.md)).
 
 ### Containers
 
@@ -48,7 +48,7 @@ Five layers: **unlock** (PAM with fprintd, Howdy, PIN), **broker** (the Agent), 
 | `security/` | Agent's D-Bus policy, systemd unit, AppArmor profile; Tetragon and alert rules later | Built; VM-tested |
 | `policy/` | Policy schema and example | Example only |
 
-The virtual CTAP authenticator and its `uhid` helper are not crates yet. They exist only as prototype work in [spike 0094](https://github.com/LinuxHello/architecture/blob/main/spikes/0094-virtual-ctap-end-to-end.md).
+The virtual CTAP authenticator and its `uhid` helper are not crates yet. They exist only as prototype work in [spike 0094](https://github.com/LinuxHello/linux-hello-architecture/blob/main/spikes/0094-virtual-ctap-end-to-end.md).
 
 ### Invariants (never break these)
 
@@ -122,7 +122,7 @@ Entry point is the `Makefile`; `make` lists tasks and `make next` shows what to 
 | Test VMs | `vm-up`, `vm-down`, `vm-test-agent`, `vm-test-pam`, `vm-test-rpbind`, `vm-test-uhid` on Ubuntu 24.04 and 26.04 |
 | Organisation setup | `org`, `repo`, `seed`, `protect`, `labels`, `security`, `sonar` (done; idempotent) |
 
-The unattended implementer ([ADR-0007](https://github.com/LinuxHello/architecture/blob/main/adr/0007-unattended-agent-loops.md)) is **untested against a live model and a live user manager**. Its logic is tested with fakes.
+The unattended implementer ([ADR-0007](https://github.com/LinuxHello/linux-hello-architecture/blob/main/adr/0007-unattended-agent-loops.md)) is **untested against a live model and a live user manager**. Its logic is tested with fakes.
 
 ## How work flows
 
@@ -165,11 +165,11 @@ Every open issue has one `status:`, one `priority:` (`now`, `next`, `later`), a 
 
 | I want to… | Go to |
 | :-- | :-- |
-| Understand the design | [`architecture/arc42/README.md`](https://github.com/LinuxHello/architecture/blob/main/arc42/README.md), then the ADR index |
-| See the model | [`architecture/workspace.dsl`](https://github.com/LinuxHello/architecture/blob/main/workspace.dsl) and the SVGs in `diagrams/` |
+| Understand the design | [`architecture/arc42/README.md`](https://github.com/LinuxHello/linux-hello-architecture/blob/main/arc42/README.md), then the ADR index |
+| See the model | [`architecture/workspace.dsl`](https://github.com/LinuxHello/linux-hello-architecture/blob/main/workspace.dsl) and the SVGs in `diagrams/` |
 | Build and test | [`linux-hello/README.md`](https://github.com/LinuxHello/linux-hello#build): clone with `--recurse-submodules`, `cargo build --workspace`, `make gates` |
 | Pick up work | `make next`, or [`docs/project/backlog.md`](https://github.com/LinuxHello/linux-hello/blob/main/docs/project/backlog.md) |
 | Rules for coding agents | [`AGENTS.md`](https://github.com/LinuxHello/linux-hello/blob/main/AGENTS.md) |
 | Report a vulnerability | Privately, per [`SECURITY.md`](https://github.com/LinuxHello/linux-hello/blob/main/SECURITY.md); never in a public issue |
-| Make a Linux Hello visual | [`branding/README.md`](https://github.com/LinuxHello/branding) |
+| Make a Linux Hello visual | [`branding/README.md`](https://github.com/LinuxHello/linux-hello-branding) |
 | Run the maintainer tooling | [`RUNBOOK.md`](https://github.com/LinuxHello/linux-hello-workstation/blob/main/RUNBOOK.md) |
