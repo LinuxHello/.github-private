@@ -8,11 +8,11 @@ Member-only organisation profile for [LinuxHello](https://github.com/LinuxHello)
 | [.github/CODEOWNERS](.github/CODEOWNERS) | Who reviews changes |
 | [.github/workflows/dco.yml](.github/workflows/dco.yml) | The `dco` check |
 
-This repository is private. The overview describes the private `linux-hello-workstation` repository, so do not copy it into a public repository ([invariant 8](https://github.com/LinuxHello/linux-hello/blob/main/AGENTS.md#invariants) keeps machine details out of those).
+This repository is reported as **public** (checked with `gh` on 2026-11-23), although it was set up as private: the overview describes the maintainer's workstation tooling. Anyone can read the file while the repository is public, so the overview holds no secrets and no machine details ([invariant 8](https://github.com/LinuxHello/linux-hello/blob/main/AGENTS.md#invariants)). If the repository is meant to be private, the maintainer changes its visibility; nothing in a pull request does.
 
 ## Keeping the overview current
 
-The overview is a snapshot, written by hand from the four repositories. Update it when a repository is added, a container changes state, an ADR changes status, or the workflow changes. Check each claim against `main` of the repository it describes, and date the snapshot in the first paragraph.
+The overview is a snapshot, written by hand from the repositories of the organisation. Update it when a repository is added, a container changes state, an ADR changes status, or the workflow changes. Check each claim against `main` of the repository it describes, and date the snapshot in the first paragraph.
 
 ## Contributing
 
